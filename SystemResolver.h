@@ -6,8 +6,9 @@ class SystemResolver:public Matrix
 public:
 
 	Matrix* sysMatrix;
+	Matrix* resultMatrix;
 	ResolverMethods method;
-	Vector resolution;
+	Vector* resolution;
 	int rowsDim, collumDim, systemGrade = 0;
 
 	SystemResolver(double coefMatrix[MAX_DIM][MAX_DIM],int systemGrade, ResolverMethods method){
@@ -21,27 +22,44 @@ public:
 
 	Vector resolveSystem() {
 		switch (this->method) {
-			case (GAUSS_SEIDEL):
+			case (GAUSS_ELIMINATION):
 				break;
-			case (BACK_SUB):
+			case (QR_FACTORIZATION):
 				break;
-			case (CRAMER):
+			case (LU_FACTORIZATION):
 				break;
 		}
 	}
 
 private:
 
-	void gaussSeidel() {
+	Vector backSubstitution() {
+		double resArr[collumDim];
+		for (int i = rowsDim; i >= 0; i--) {
+			resArr[i] = sysMatrix->mat[i][collumDim];
+			for (int j = 0; j < collumDim; j++) {
+				if (i != j) {
+					resArr[i] = resArr[i] - sysMatrix->mat[i][j] * resArr[j];
+				}
+			}
 
+			resArr[i] = resArr[i] / sysMatrix->mat[i][i];
+		}
+
+		this->resolution = new Vector(rowsDim, resArr)
 	}
 
+
+public: 
+	static bool linearDependecy(Vector v1, Vector v2){
+
+	}
 };
 
 
 enum ResolverMethods
 {
-	GAUSS_SEIDEL = 1,
-	BACK_SUB = 2,
-	CRAMER = 3,
+	GAUSS_ELIMINATION = 1,
+	LU_FACTORIZATION = 2,
+	QR_FACTORIZATION = 3
 };
