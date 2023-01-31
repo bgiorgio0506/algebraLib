@@ -1,0 +1,69 @@
+/*
+* Actual implementation of the Matrix object methos
+* 
+* Copyright Giorgio Bella 2022-2022
+*/
+
+#include <limits.h>
+
+#define MAX_DIM 1000
+
+
+class Matrix
+{
+	
+private:
+	int collumDim;
+	int rowsDim;
+
+	long det(double mat[MAX_DIM][MAX_DIM], int dim);
+
+	public:
+		double mat[MAX_DIM][MAX_DIM];
+
+		Matrix() = default; //tell C++ this is default constructor;
+
+		//constructor of the class
+		Matrix(int rowsDim, int collumDim, double matrix[MAX_DIM][MAX_DIM]) {
+			this->collumDim = collumDim;
+			this->rowsDim = rowsDim;
+			//load the matrix consider filling the matrix rows by rows
+			for (int j = 0; j < this->rowsDim; j++) {
+				for (int k = 0; k < this->collumDim; k++) {
+					this->mat[j][k] = matrix[j][k];
+				}
+			}
+		}
+
+		//deconstructor 
+		virtual ~Matrix() {
+			this->collumDim = 0;
+			this->rowsDim = 0;
+		}
+
+		long det();
+
+		long tr();
+
+		bool isSquareMatrix();
+
+		Matrix getCofactorMaxtrix(int row, int collum);
+
+		Matrix adjoint();
+	
+		Matrix scalarMultiplication(long number);
+
+		Matrix inverse();
+
+		Matrix traspose();
+
+		Matrix gaussianElimination();
+
+		Matrix rowInchelonForm();
+
+		static Matrix sumMatricies(Matrix m1, Matrix m2);
+
+		static Matrix multiplyMatricies(Matrix m1, Matrix m2);
+
+};
+	
