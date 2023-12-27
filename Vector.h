@@ -9,6 +9,7 @@ public:
 
 	//Methods
 	double vectorModule();
+	double vModuleSquared();
 	static double angleRespectVector(Vector v1, Vector v2);
 	static double dotProduct(Vector v1, Vector v2);
 	static Vector crossProduct(Vector v1, Vector v2);

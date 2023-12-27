@@ -1,7 +1,7 @@
 /*
 * Actual implementation of the Matrix object methos
 * 
-* Copyright Giorgio Bella 2022-2022
+* Copyright Giorgio Bella 2022-2023
 */
 
 #include <limits.h>
@@ -35,6 +35,20 @@ private:
 			}
 		}
 
+		Matrix(double matrix[MAX_DIM][MAX_DIM]) {
+			int rowDim = sizeof(matrix)/sizeof(matrix[0]);
+			int colDim = sizeof(matrix[0])/sizeof(matrix[0][0]);
+			this->collumDim = colDim;
+			this->rowsDim = rowDim;
+
+			for (int j = 0; j < this->rowsDim; j++) {
+				for (int k = 0; k < this->collumDim; k++) {
+					this->mat[j][k] = matrix[j][k];
+				}
+			}
+		
+		}
+
 		//deconstructor 
 		virtual ~Matrix() {
 			this->collumDim = 0;
@@ -60,6 +74,8 @@ private:
 		Matrix gaussianElimination();
 
 		Matrix rowInchelonForm();
+
+		Matrix getSubMatrix(int fromRow, int toRow, int fromCol, int toCol);
 
 		static Matrix sumMatricies(Matrix m1, Matrix m2);
 

@@ -229,7 +229,7 @@ Matrix Matrix::getCofactorMaxtrix(int row, int collum) {
 		}
 	}
 
-	return Matrix(this->rowsDim - 1, this->rowsDim - 1, cofactorMatrix);
+	return Matrix(cofactorMatrix);
 }
 
 
@@ -246,7 +246,7 @@ Matrix Matrix::adjoint() {
 			}
 		}
 
-		return Matrix(this->rowsDim - 1, this->rowsDim - 1, adjointMatrix);
+		return Matrix(adjointMatrix);
 	}
 
 }
@@ -280,4 +280,19 @@ Matrix Matrix::adjoint() {
 	 }
 
 	 return Matrix(m1.rowsDim, m2.collumDim, res);
+ }
+
+ Matrix Matrix::getSubMatrix(int fromRow, int toRow, int fromCol, int toCol){
+	 if (fromRow > this->rowsDim || fromCol > this->collumDim) return;
+	 
+	 double res[MAX_DIM][MAX_DIM];
+	 for (int i = 0; i < this->collumDim; i++) {
+		 for (int j = 0; j < this->rowsDim; j++) {
+			 if (fromCol >= i && fromRow >= j && toCol <=i && toRow<=j) {
+				 res[i][j] = this->mat[i][j];
+			 }
+		 }
+	 }
+
+	 return Matrix(res);
  }

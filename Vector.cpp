@@ -11,6 +11,16 @@ double Vector::vectorModule() {
 	return sqrt(sum);
 }
 
+double Vector::vModuleSquared() {
+	double sum = 0;
+	double n = 0;
+	for (int i = 0; i < this->vLen; i++) {
+		sum += pow(this->v[i], 2);
+	}
+
+	return sum;
+}
+
 double Vector::dotProduct(Vector v1, Vector v2) {
 	if (v1.vLen != v2.vLen) return;
 	
